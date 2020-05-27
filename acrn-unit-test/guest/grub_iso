@@ -16,12 +16,14 @@ isodir=`mktemp -d /tmp/iso.XXX`
 isofile=file.iso
 default=0
 timeout=4
+keep=
 
-while getopts t:d: c
+while getopts t:d:k c
 do
     case $c in
     t)  timeout="$OPTARG";;
     d)  default="$OPTARG";;
+    k)  keep=1;;
     ?)  usage; exit 2;;
     esac
 done
@@ -69,4 +71,9 @@ elif which grub2-mkrescue; then
     grub2-mkrescue -o $isofile $isodir
 fi
 
-#rm -r $isodir
+echo $isodir
+
+set -x
+if test -z "$keep"; then
+	rm -r $isodir
+fi

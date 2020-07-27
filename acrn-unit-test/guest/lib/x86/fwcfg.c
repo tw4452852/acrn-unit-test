@@ -46,6 +46,6 @@ unsigned fwcfg_get_nb_cpus(void)
 #elif defined IN_NATIVE
 	return 4;
 #else
-	return 3;
+	return 2;
 #endif
 }

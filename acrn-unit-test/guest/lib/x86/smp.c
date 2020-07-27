@@ -59,10 +59,7 @@ int cpu_count(void)
 
 int smp_id(void)
 {
-	unsigned id;
-
-	asm ("mov %%gs:"xstr(SMP_ID_ADDR)", %0" : "=r"(id));
-	return id;
+	return apic_id();
 }
 
 static void setup_smp_id(void *data)

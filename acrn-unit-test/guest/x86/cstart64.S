@@ -251,6 +251,7 @@ start64:
 	call enable_apic
 	call load_tss
 	call mask_pic_interrupts
+	call ap_init
 	call smp_init
 	mov mb_boot_info(%rip), %rbx
 	mov %rbx, %rdi
@@ -312,7 +313,7 @@ load_tss:
 	ltr %ax
 	ret
 
-smp_init:
+ap_init:
 	cld
 	lea sipi_entry, %rsi
 	xor %rdi, %rdi

@@ -81,6 +81,7 @@ typedef _Bool		bool;
 typedef u64			phys_addr_t;
 #define INVALID_PHYS_ADDR	(~(phys_addr_t)0)
 
+extern uint8_t getc();
 extern void puts(const char *s);
 extern int __getchar(void);
 extern int getchar(void);

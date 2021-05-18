@@ -8,6 +8,8 @@
 .globl cpu_online_count
 /*Adding for GP at X64 environment*/
 .globl gdt64
+.globl pt_root_32
+.globl pt_root_pae
 
 ipi_vector = 0x20
 
@@ -48,6 +50,21 @@ ptl4:
 .align 4096
 ptl5:
 	.quad ptl4 + 7
+
+.align 4096
+pt_root_pae:
+	.quad ptl2 + 1 + 0 * 4096
+	.quad ptl2 + 1 + 1 * 4096
+	.quad ptl2 + 1 + 2 * 4096
+	.quad ptl2 + 1 + 3 * 4096
+
+.align 4096
+pt_root_32:
+i = 0
+	.rept 1024
+	.long 0x1e7 | (i << 22)
+	i = i + 1
+	.endr
 
 .align 4096
 

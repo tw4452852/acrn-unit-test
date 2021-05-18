@@ -22,6 +22,16 @@ static void serial_outb(char ch)
 	outb(ch, serial_iobase + 0x00);
 }
 
+static uint8_t serial_inb()
+{
+	u8 lsr = inb(serial_iobase + 0x05);
+
+	if (lsr & 0x1) {
+		return inb(serial_iobase);
+	}
+	return 0xff;
+}
+
 static void serial_put(char ch)
 {
 	/* Force carriage return to be performed on \n */
@@ -75,6 +85,15 @@ static void print_serial(const char *buf)
 #else
 	asm volatile ("rep/outsb" : "+S"(buf), "+c"(len) : "d"(0xf1));
 #endif
+}
+
+uint8_t getc()
+{
+	uint8_t c;
+	spin_lock(&lock);
+	c = serial_inb();
+	spin_unlock(&lock);
+	return c;
 }
 
 void puts(const char *s)

@@ -1,4 +1,4 @@
-ORG_DIR := ../../../acrn-unit-test/guest/
+ORG_DIR := .
 C_SRCS_X86 := $(shell cd $(ORG_DIR) && ls x86/*.c x86/realmode/*.c)
 C_SRCS_LIB := $(shell cd $(ORG_DIR) && ls lib/x86/*.c)
 
